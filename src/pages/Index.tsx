@@ -16,6 +16,13 @@ const Index = () => {
   const [loadingProgress, setLoadingProgress] = useState(0);
   const { toast } = useToast();
 
+  // Reset scroll position when loading completes
+  useEffect(() => {
+    if (!isLoading) {
+      window.scrollTo(0, 0);
+    }
+  }, [isLoading]);
+
   useEffect(() => {
     // Create a smooth loading animation over 2 seconds
     const startTime = Date.now();
