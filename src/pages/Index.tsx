@@ -59,14 +59,20 @@ const Index = () => {
   };
 
   const toggleStealthMode = () => {
-    setStealthMode(prev => !prev);
-    
-    toast({
-      title: stealthMode ? "STEALTH MODE DEACTIVATED" : "STEALTH MODE ACTIVATED",
-      description: stealthMode 
-        ? "Returning to standard security protocols." 
-        : "Welcome to the shadow network. Secure channel established.",
-      variant: stealthMode ? "default" : "destructive",
+    // Toggle state using functional update to get the previous value
+    setStealthMode(prevMode => {
+      // Use the new value that's about to be set for the toast message
+      const newMode = !prevMode;
+      
+      toast({
+        title: newMode ? "STEALTH MODE ACTIVATED" : "STEALTH MODE DEACTIVATED",
+        description: newMode 
+          ? "Welcome to the shadow network. Secure channel established." 
+          : "Returning to standard security protocols.",
+        variant: newMode ? "destructive" : "default",
+      });
+      
+      return newMode;
     });
   };
 
