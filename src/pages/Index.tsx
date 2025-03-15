@@ -1,9 +1,11 @@
+
 import React, { useState, useEffect } from 'react';
 import Terminal from '@/components/Terminal';
 import Dashboard from '@/components/Dashboard';
 import MatrixRain from '@/components/MatrixRain';
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
+import { Progress } from "@/components/ui/progress";
 import { ChevronRight, ChevronLeft, TerminalSquare, LayoutDashboard, Shield, Eye } from 'lucide-react';
 
 const Index = () => {
@@ -11,14 +13,35 @@ const Index = () => {
   const [commandHistory, setCommandHistory] = useState<{ command: string; output: string }[]>([]);
   const [stealthMode, setStealthMode] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [loadingProgress, setLoadingProgress] = useState(0);
   const { toast } = useToast();
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 2000);
+    // Create a smooth loading animation over 2 seconds
+    const startTime = Date.now();
+    const duration = 2000; // 2 seconds
     
-    return () => clearTimeout(timer);
+    const updateProgress = () => {
+      const currentTime = Date.now();
+      const elapsed = currentTime - startTime;
+      const progress = Math.min((elapsed / duration) * 100, 100);
+      
+      setLoadingProgress(progress);
+      
+      if (progress < 100) {
+        requestAnimationFrame(updateProgress);
+      } else {
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 100); // Small delay after reaching 100%
+      }
+    };
+    
+    requestAnimationFrame(updateProgress);
+    
+    return () => {
+      // Cleanup if component unmounts
+    };
   }, []);
 
   const handleCommandExecuted = (command: string, output: string) => {
@@ -86,12 +109,15 @@ const Index = () => {
           </p>
         </div>
         
-        <div className="w-64 h-2 bg-cyber-darker rounded-full overflow-hidden mb-2">
-          <div className="h-full bg-cyber-primary animate-pulse" style={{ width: '60%' }}></div>
+        <div className="w-64 mb-2">
+          <Progress value={loadingProgress} className="h-2 bg-cyber-darker" />
         </div>
         
         <div className="text-xs text-cyber-primary/60 font-cyber">
-          Establishing secure connection...
+          {loadingProgress < 30 ? "Establishing secure connection..." : 
+           loadingProgress < 60 ? "Decrypting access protocols..." : 
+           loadingProgress < 90 ? "Authenticating credentials..." : 
+           "Connection established."}
         </div>
         
         <div className="crt-overlay"></div>
