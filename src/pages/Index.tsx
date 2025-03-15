@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import Terminal from '@/components/Terminal';
 import Dashboard from '@/components/Dashboard';
@@ -8,13 +7,12 @@ import { useToast } from "@/components/ui/use-toast";
 import { ChevronRight, ChevronLeft, TerminalSquare, LayoutDashboard, Shield, Eye } from 'lucide-react';
 
 const Index = () => {
-  const [view, setView] = useState<'terminal' | 'dashboard'>('terminal');
+  const [view, setView] = useState<'terminal' | 'dashboard'>('dashboard');
   const [commandHistory, setCommandHistory] = useState<{ command: string; output: string }[]>([]);
   const [stealthMode, setStealthMode] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const { toast } = useToast();
 
-  // Simulated loading effect
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
@@ -26,7 +24,6 @@ const Index = () => {
   const handleCommandExecuted = (command: string, output: string) => {
     setCommandHistory(prev => [...prev, { command, output }]);
     
-    // Handle special commands
     if (command === 'exit') {
       toast({
         title: "Switching to dashboard",
@@ -59,9 +56,7 @@ const Index = () => {
   };
 
   const toggleStealthMode = () => {
-    // Toggle state using functional update to get the previous value
     setStealthMode(prevMode => {
-      // Use the new value that's about to be set for the toast message
       const newMode = !prevMode;
       
       toast({
@@ -107,7 +102,6 @@ const Index = () => {
 
   return (
     <div className={`min-h-screen flex flex-col transition-all duration-500 ${stealthMode ? 'bg-black' : 'bg-cyber-black'}`}>
-      {/* Header */}
       <header className={`p-4 flex justify-between items-center border-b ${stealthMode ? 'border-cyber-purple/30' : 'border-cyber-primary/30'} transition-colors duration-500`}>
         <div className="flex items-center">
           <h1 
@@ -158,7 +152,6 @@ const Index = () => {
         </div>
       </header>
       
-      {/* Main Content */}
       <main className="flex-grow flex p-4">
         <div className={`w-full h-full transition-all duration-500 ease-in-out transform ${view === 'terminal' ? 'translate-x-0' : '-translate-x-full absolute opacity-0 pointer-events-none'}`}>
           <Terminal 
@@ -175,7 +168,6 @@ const Index = () => {
         </div>
       </main>
       
-      {/* Footer */}
       <footer className={`p-3 border-t ${stealthMode ? 'border-cyber-purple/30' : 'border-cyber-primary/30'} transition-colors duration-500`}>
         <div className="flex justify-between items-center">
           <div className="text-xs font-cyber text-cyber-primary/60">
@@ -190,7 +182,6 @@ const Index = () => {
         </div>
       </footer>
       
-      {/* Background Effects */}
       <div className="crt-overlay"></div>
       {stealthMode ? (
         <div className="fixed top-0 left-0 w-full h-full bg-cyber-purple/5 -z-5"></div>
