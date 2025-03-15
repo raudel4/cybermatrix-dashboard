@@ -1,101 +1,231 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --background: 225 30% 5%;
+    --foreground: 156 100% 50%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 225 30% 7%;
+    --card-foreground: 156 100% 50%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 225 30% 4%;
+    --popover-foreground: 156 100% 50%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 156 100% 50%;
+    --primary-foreground: 225 30% 5%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 195 100% 50%;
+    --secondary-foreground: 225 30% 5%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 225 20% 20%;
+    --muted-foreground: 156 40% 70%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 325 100% 50%;
+    --accent-foreground: 225 30% 5%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 85% 60%;
+    --destructive-foreground: 156 100% 50%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 156 60% 20%;
+    --input: 156 60% 20%;
+    --ring: 156 100% 50%;
 
     --radius: 0.5rem;
-
-    --sidebar-background: 0 0% 98%;
-
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+  * {
+    @apply border-border selection:bg-cyber-primary/20 selection:text-cyber-primary;
+  }
+  
+  html {
+    @apply scroll-smooth;
+    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2300ff9d' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 3l7.07 16.97 2.51-7.39 7.39-2.51L3 3z'/%3E%3C/svg%3E"), auto;
+  }
+  
+  body {
+    @apply bg-cyber-black text-cyber-primary font-cyber antialiased m-0 p-0 overflow-x-hidden min-h-screen;
+    background-image: 
+      radial-gradient(circle at 25px 25px, rgba(0, 179, 255, 0.05) 2%, transparent 0%),
+      radial-gradient(circle at 75px 75px, rgba(0, 255, 157, 0.05) 2%, transparent 0%);
+    background-size: 100px 100px;
+  }
 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
+  ::-webkit-scrollbar-track {
+    @apply bg-cyber-darker;
+  }
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+  ::-webkit-scrollbar-thumb {
+    @apply bg-cyber-primary/40 rounded hover:bg-cyber-primary/60 transition-colors;
   }
 }
 
-@layer base {
-  * {
-    @apply border-border;
+@layer components {
+  .cyber-border {
+    @apply border border-cyber-primary/30 shadow-[0_0_10px_rgba(0,255,157,0.3),inset_0_0_10px_rgba(0,255,157,0.2)] rounded;
+  }
+  
+  .cyber-panel {
+    @apply bg-cyber-dark/80 backdrop-blur-sm cyber-border p-4;
+  }
+  
+  .cyber-button {
+    @apply bg-cyber-dark border border-cyber-primary/50 text-cyber-primary px-4 py-2 rounded 
+           shadow-[0_0_10px_rgba(0,255,157,0.3)] hover:shadow-[0_0_15px_rgba(0,255,157,0.5)] 
+           transition-all duration-300 hover:border-cyber-primary focus:outline-none focus:ring-2 
+           focus:ring-cyber-primary/50 active:bg-cyber-primary/10;
+  }
+  
+  .terminal-text {
+    @apply font-cyber text-cyber-terminal;
+  }
+  
+  .neon-text {
+    text-shadow: 0 0 5px rgba(0, 255, 157, 0.7), 0 0 10px rgba(0, 255, 157, 0.5);
+  }
+  
+  .blue-neon-text {
+    text-shadow: 0 0 5px rgba(0, 179, 255, 0.7), 0 0 10px rgba(0, 179, 255, 0.5);
+  }
+  
+  .glitch-text {
+    position: relative;
   }
 
-  body {
-    @apply bg-background text-foreground;
+  .glitch-text::before,
+  .glitch-text::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .glitch-text::before {
+    left: 2px;
+    text-shadow: -1px 0 rgba(255, 0, 195, 0.7);
+    animation: glitch-animation 2s infinite linear alternate-reverse;
+  }
+
+  .glitch-text::after {
+    left: -2px;
+    text-shadow: 1px 0 rgba(0, 179, 255, 0.7);
+    animation: glitch-animation 3s infinite linear alternate-reverse;
+  }
+
+  .scanline {
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 20px;
+    background: linear-gradient(to bottom, 
+                 transparent, 
+                 rgba(0, 255, 157, 0.05) 50%, 
+                 transparent);
+    opacity: 0.2;
+    z-index: 40;
+    animation: scanline 4s linear infinite;
+  }
+
+  .crt-overlay {
+    pointer-events: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+      linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%),
+      linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.03));
+    background-size: 100% 2px, 3px 100%;
+    z-index: 30;
+  }
+
+  .typing-effect {
+    @apply font-cyber overflow-hidden whitespace-nowrap;
+    border-right: 0.15em solid rgba(0, 255, 157, 0.7);
+    animation: 
+      typing 3.5s steps(40, end),
+      blink 0.75s step-end infinite;
+  }
+}
+
+@keyframes glitch-animation {
+  0% {
+    clip: rect(44px, 9999px, 56px, 0);
+  }
+  5% {
+    clip: rect(63px, 9999px, 10px, 0);
+  }
+  10% {
+    clip: rect(5px, 9999px, 29px, 0);
+  }
+  15% {
+    clip: rect(71px, 9999px, 28px, 0);
+  }
+  20% {
+    clip: rect(26px, 9999px, 98px, 0);
+  }
+  25% {
+    clip: rect(33px, 9999px, 43px, 0);
+  }
+  30% {
+    clip: rect(9px, 9999px, 65px, 0);
+  }
+  35% {
+    clip: rect(53px, 9999px, 2px, 0);
+  }
+  40% {
+    clip: rect(41px, 9999px, 73px, 0);
+  }
+  45% {
+    clip: rect(20px, 9999px, 60px, 0);
+  }
+  50% {
+    clip: rect(89px, 9999px, 74px, 0);
+  }
+  55% {
+    clip: rect(16px, 9999px, 75px, 0);
+  }
+  60% {
+    clip: rect(82px, 9999px, 31px, 0);
+  }
+  65% {
+    clip: rect(83px, 9999px, 98px, 0);
+  }
+  70% {
+    clip: rect(63px, 9999px, 22px, 0);
+  }
+  75% {
+    clip: rect(85px, 9999px, 94px, 0);
+  }
+  80% {
+    clip: rect(10px, 9999px, 98px, 0);
+  }
+  85% {
+    clip: rect(99px, 9999px, 59px, 0);
+  }
+  90% {
+    clip: rect(91px, 9999px, 94px, 0);
+  }
+  95% {
+    clip: rect(90px, 9999px, 79px, 0);
+  }
+  100% {
+    clip: rect(95px, 9999px, 28px, 0);
   }
 }
